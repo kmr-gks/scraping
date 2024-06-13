@@ -16,5 +16,3 @@ def send_message(message):
 		'message': socket.gethostname()+'\n'+datetime.datetime.now().strftime('%Y年%m月%d日 %H:%M:%S') + "\n" + message
 	}
 	requests.post(line_notify_api, headers = headers, data = data)
-
-send_message("ああああ")
