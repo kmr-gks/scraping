@@ -1,3 +1,12 @@
+*.html
+*.htm
+test.*
+linetoken.txt
+ideapad-5-2-in-1-gen-9.txt
+dell.txt
+log.txt
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
