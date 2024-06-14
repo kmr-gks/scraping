@@ -2,7 +2,6 @@ import datetime
 import pandas as pd
 import numpy as np
 import yfinance as yf
-import matplotlib.pyplot as plt
 import sys
 import os
 sys.path.append(os.path.dirname(__file__)+'/..')
@@ -10,6 +9,8 @@ from linenotify import send_message
 
 os.chdir(os.path.dirname(__file__))
 message=""
+log_file="log.txt"
+log_str=""
 
 #target,threshold,high_or_lowをcsvファイルから読み込む
 df = pd.read_csv('tickers.csv')
@@ -40,8 +41,19 @@ for i in range(len(df)):
 			message+=f"{name}の株価が{threshold}を下回りました。現在の株価は{value:.4g}{currency}です。\n"
 
 	print(stock_time,name,value,currency)
+	log_str+=f"{stock_time},{name},{value},{currency}\n"
 
 if message != "":
 	message=stock_time+"\n"+message
 	print(message)
 	send_message(message)
+	log_str+=message
+
+# ファイルが存在しない場合は作成
+if not os.path.exists(log_file):
+	with open(log_file, 'w', encoding='utf-8') as f:
+		f.write("\n")
+
+#ログを書き込む
+with open(log_file, 'a', encoding='utf-8') as f:
+	f.write(log_str)
